@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASCII Code Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<h1>ASCII Code Quiz</h1>
+
+<div id="quiz-container">
+  <!-- Quiz questions and options will be added here dynamically -->
+</div>
+
+<button onclick="submitQuiz()">Submit Answers</button>
+
+<script>
+  const quizData = [
+    {
+      question: "ASCII code中，數字 65 對應於哪個大寫英文字母？",
+      answer: "B",
+      options: ["A", "B", "C", "D"]
+    },
+    {
+      question: "ASCII code中，特殊符號 '@' 的數字碼是多少？",
+      answer: "C",
+      options: ["32", "64", "65", "66"]
+    },
+    {
+      question: "ASCII code中，小寫英文字母 'g' 的數字碼是多少？",
+      answer: "A",
+      options: ["97", "103", "110", "116"]
+    }
+  ];
+
+  const quizContainer = document.getElementById("quiz-container");
+
+  // Dynamically generate quiz questions and options
+  quizData.forEach((quiz, index) => {
+    const questionDiv = document.createElement("div");
+    questionDiv.innerHTML = `<p>${index + 1}. ${quiz.question}</p>`;
+
+    quiz.options.forEach((option, optionIndex) => {
+      questionDiv.innerHTML += `
+        <input type="radio" name="question${index}" value="${option}" id="q${index}o${optionIndex}">
+        <label for="q${index}o${optionIndex}">${option}</label><br>
+      `;
+    });
+
+    quizContainer.appendChild(questionDiv);
+  });
+
+  function submitQuiz() {
+    let score = 0;
+
+    quizData.forEach((quiz, index) => {
+      const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        if (userAnswer === quiz.answer) {
+          score++;
+        }
+      }
+    });
+
+    alert(`Your score: ${score} out of ${quizData.length}`);
+  }
+</script>
+
+</body>
+</html>
